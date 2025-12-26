@@ -1,0 +1,29 @@
+# --- Python cache ---
+__pycache__/
+*.py[cod]
+*.pyo
+
+# --- Virtual environments ---
+.venv/
+venv/
+
+# --- Environment / secrets ---
+.env
+*.env
+
+# --- IDE / tooling ---
+.vscode/
+.idea/
+*.code-workspace
+
+# --- OS files ---
+.DS_Store
+Thumbs.db
+
+# --- Python packaging ---
+*.egg-info/
+dist/
+build/
+
+# --- Logs ---
+*.log
