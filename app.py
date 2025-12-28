@@ -69,25 +69,26 @@ if prompt := st.chat_input("How can I help with your GCP architecture?"):
         )
         
         try:
-            # 5. Execute the agent runner
-            # Using new_message=... is the correct keyword for the ADK Runner
-            for event in st.session_state.runner.run(
-                user_id=USER_ID,
-                session_id=SESSION_ID,
-                new_message=new_message
-            ):
-                # Stream the text content as it arrives
-                if hasattr(event, 'content') and event.content.parts:
-                    text_part = event.content.parts[0].text
-                    if text_part:
-                        full_response += text_part
-                        response_placeholder.markdown(full_response + "▌")
-            
-            # Final render without the cursor
-            response_placeholder.markdown(full_response)
-            
+                    # 5. Execute the agent runner
+                    for event in st.session_state.runner.run(
+                        user_id=USER_ID,
+                        session_id=SESSION_ID,
+                        new_message=new_message
+                    ):
+                        # Check 1: Does the event have content?
+                        if hasattr(event, 'content') and event.content is not None:
+                            # Check 2: Does the content have parts?
+                            if hasattr(event.content, 'parts') and event.content.parts:
+                                for part in event.content.parts:
+                                    # Check 3: Is it a text part? (Skips function_calls)
+                                    if hasattr(part, 'text') and part.text:
+                                        full_response += part.text
+                                        response_placeholder.markdown(full_response + "▌")
+                    
+                    # Final render without the cursor
+                    response_placeholder.markdown(full_response)
+                    
         except Exception as e:
-            st.error(f"Execution Error: {str(e)}")
-            st.info("Check if you have run 'gcloud auth application-default login' and that your project ID is set.")
+                st.error(f"Execution Error: {str(e)}")
         
     st.session_state.messages.append({"role": "assistant", "content": full_response})
