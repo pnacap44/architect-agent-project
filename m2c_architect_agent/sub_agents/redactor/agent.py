@@ -7,5 +7,6 @@ from . import prompt
 redactor_agent = Agent(
     model=MODEL,
     name="redactor_agent",
+    description='Specialized agent for generating final architecture documentation.',
     instruction=prompt.REDACTOR_PROMPT,
 )

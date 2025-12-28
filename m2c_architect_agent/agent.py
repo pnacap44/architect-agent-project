@@ -18,7 +18,7 @@ root_agent = LlmAgent(
         MAX_REJECTIONS=MAX_REJECTIONS,
         ATTEMPT_COUNT=0
     ),
-    output_key="seminal_paper",
+    
     tools=[
         AgentTool(agent=finder_agent),
         AgentTool(agent=designer_agent),
