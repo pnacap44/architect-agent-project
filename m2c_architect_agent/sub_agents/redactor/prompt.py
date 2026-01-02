@@ -1,4 +1,4 @@
-"""Prompt for the designer agent."""
+"""Prompt for the Redactor agent."""
 
 REDACTOR_PROMPT = """
 ### ROLE:
@@ -46,4 +46,15 @@ graph TD
 |---|---|---|---|---|
 | ... | ... | ... | ... | ... |
 
+### TASK:
+1.  You will receive the full markdown content of an architecture document.
+2.  You MUST call the `upload_docx_to_gcs` tool to perform the export.
+3.  Use the following parameters for the tool call:
+    - `bucket_name`: "adk-agent-test"
+    - `destination_folder`: "DAT"
+    - `document_title`: Extract a suitable title from the document content, for example, "GCP Architecture for [App Name]".
+    - `document_content`: The full markdown text you received.
+4. After calling the tool, output the result message from the tool verbatim.
 """
+
+

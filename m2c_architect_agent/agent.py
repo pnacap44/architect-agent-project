@@ -7,6 +7,7 @@ from .sub_agents.auditor import auditor_agent
 from .sub_agents.designer import designer_agent
 from .sub_agents.finder import finder_agent
 from .sub_agents.redactor import redactor_agent
+from .sub_agents.exporter import exporter_agent
 
 from .config import MODEL, MAX_REJECTIONS
 
@@ -24,5 +25,6 @@ root_agent = LlmAgent(
         AgentTool(agent=designer_agent),
         AgentTool(agent=auditor_agent),
         AgentTool(agent=redactor_agent),
+        AgentTool(agent=exporter_agent),
     ],
 )

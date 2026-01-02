@@ -210,11 +210,13 @@ if prompt:
                 if hasattr(event, 'content') and event.content:
                     if hasattr(event.content, 'parts') and event.content.parts:
                         for part in event.content.parts:
-                            if hasattr(part, 'text') and part.text:
+                            if hasattr(part, 'text') and part.text and part.text.strip():
                                 full_response += part.text
                                 response_placeholder.markdown(full_response + "▌")
                             if hasattr(part, 'function_call') and part.function_call:
                                 print(f"DEBUG Tool Call: {part.function_call.name}")
+                                full_response += f"\n\n> Calling sub-agent: `{part.function_call.name}`..."
+                                response_placeholder.markdown(full_response)
             
             response_placeholder.markdown(full_response)
             
